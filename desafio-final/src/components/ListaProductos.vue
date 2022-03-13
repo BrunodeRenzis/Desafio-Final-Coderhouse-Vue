@@ -16,14 +16,14 @@
                 height="200">
               <v-card>
                   <v-img
-                  src="https://picsum.photos/350/165"
+                  src="https://picsum.photos/350/165?random"
                   max-width="350"
                   max-height="350"
                   contain
                   class="grey darken-4 detalleImagen"
                   ></v-img>
               <v-card-title class="text-h6">
-                Título genérico
+                {{nombre}}
               </v-card-title>
               <v-btn flat color="orange">Agregar al carrito</v-btn>
               </v-card>
