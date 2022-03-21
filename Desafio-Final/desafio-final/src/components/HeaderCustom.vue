@@ -31,27 +31,19 @@
           <li>Compras</li>
         </ul>
       </div>
-        <div class="contenedorBotones d-flex p-3 ml-3">
-          <button class="btn btn-danger">Registro</button>
-          <button class="btn btn-primary">Log in</button>
-        </div>
       <div class="carritoCompra">
         <carrito-compra/> 
       </div>
       <v-spacer></v-spacer>
     </v-app-bar>
 
-    <v-main>
-      <lista-productos></lista-productos>
-    </v-main>
   </v-app>
   </template>
 
   <script>
   import CarritoCompra from './CarritoCompra.vue';
-  import ListaProductos from './ListaProductos.vue'
   export default {
-  components: {CarritoCompra,ListaProductos},
+  components: {CarritoCompra},
         name: 'HeaderCustom'
     }
 </script>
@@ -72,7 +64,9 @@
       }
     }
   }
-
+  .v-application--wrap{
+    min-height: 5vh !important;
+  }
   .contenedorBotones{
     width: 11%;
     justify-content: space-between;
