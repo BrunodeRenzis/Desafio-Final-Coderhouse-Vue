@@ -1,4 +1,4 @@
-[
+export const producto = [
     {
         "id": 1,
         "name": "Fideos con tuco",
