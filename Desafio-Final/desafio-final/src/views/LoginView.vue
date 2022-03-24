@@ -16,6 +16,8 @@
       <input type="password" id="password" class="fadeIn third" name="login" v-model="password" placeholder="password">
       <div v-show="submited && !$v.password.required" style="color:red;">Debe ingresar contraseña</div>
       <input type="submit" class="fadeIn fourth" value="Log In">
+      <p>username:brunod</p>
+      <p>password:adivina</p>
       <div v-show="submited && !usuarioEncontrado" style="color:red;">Usuario no encontrado</div>
     </form>
 
