@@ -1,5 +1,7 @@
 <template>
-    <button><img src="../assets/whitecart.png" alt=""></button>
+    <div>
+       <router-link to="/carrito"><img src="../assets/whitecart.png" alt="" srcset=""></router-link>
+    </div>
 </template>
 
 <script>

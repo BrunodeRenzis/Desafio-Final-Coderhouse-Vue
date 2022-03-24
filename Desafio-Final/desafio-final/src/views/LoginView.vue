@@ -11,17 +11,14 @@
     <!-- Login Form -->
     <form v-on:submit.prevent="onInput">
       <input type="text" id="username" class="fadeIn second" name="username" v-model="username" placeholder="username">
-      <div v-show="submited && !$v.username.required" class="alert alert-red">Debe ingresar nombre de usuario</div>
-      <div v-show="submited && !$v.username.minLength" class="alert alert-red">Debe ingresar un mínimo de {{$v.username.minLength}} caracteres</div>
+      <div v-show="submited && !$v.username.required" style="color:red;">Debe ingresar nombre de usuario</div>
 
       <input type="password" id="password" class="fadeIn third" name="login" v-model="password" placeholder="password">
-      <div v-show="submited && !$v.password.required" class="alert alert-red">Debe ingresar contraseña</div>
-      <div v-show="submited && !$v.password.minLength" class="alert alert-red">Debe ingresar un mínimo de {{$v.password.minLength}} caracteres</div>
-
+      <div v-show="submited && !$v.password.required" style="color:red;">Debe ingresar contraseña</div>
       <input type="submit" class="fadeIn fourth" value="Log In">
+      <div v-show="submited && !usuarioEncontrado" style="color:red;">Usuario no encontrado</div>
     </form>
 
-    <!-- Remind Passowrd -->
     <div id="formFooter">
       <router-link to="/registro"><a class="underlineHover" href="#">Register Me</a></router-link><router-view/>
     </div>
@@ -31,7 +28,8 @@
 </template>
 
 <script>
-import {required,minLength} from 'vuelidate/lib/validators'
+import axios from 'axios';
+import {required,minLength} from 'vuelidate/lib/validators';
 export default {
     name: 'LoginView',
     components:{
@@ -42,7 +40,9 @@ export default {
             username:'',
             password:'',
             submited:false,
-            mensajeError:''
+            usuarioEncontrado:false,
+            mensajeError:'',
+            listaUsuarios:[]
         }
     },
     methods:{
@@ -52,10 +52,26 @@ export default {
             return false;
           }
             this[inputName]=event.target.value;
-            console.log("El usuario es: "+this.username);
-            console.log("La contra es: "+this.password);
+            this.verifyUser(this.username,this.password);
         },
+
+        verifyUser(username,password){
+          this.usuarioEncontrado =  this.listaUsuarios.find(usuario =>usuario.username == username && usuario.password == password);
+          if(this.usuarioEncontrado){
+            setTimeout(()=>{
+              this.$router.push("/home");
+            },1000);
+          }
+        }
+        
     },
+
+    async created(){
+     let url = "https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios";
+
+     await axios.get(url).then((response)=>(this.listaUsuarios = response.data));
+    },
+    
     validations:{
       username:{
         required,
@@ -63,7 +79,7 @@ export default {
       },
       password:{
         required,
-        minLength: minLength(8)
+        minLength: minLength(6)
       }
     }
 }

@@ -30,8 +30,23 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-    name:'RegisterView'
+    name:'RegisterView',
+	data(){
+		return{
+			listaUsuarios:[],
+		}
+	},
+	async created(){
+	let url = "https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios";
+
+    await axios.get(url).then((response)=>(this.listaUsuarios = response.data));
+	},
+
+	methods:{
+		
+	}
 }
 </script>
 

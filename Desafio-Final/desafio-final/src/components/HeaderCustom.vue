@@ -25,13 +25,7 @@
         />
       </div>
 
-      <div class="d-flex align-center mt-5 listaContainer">
-        <ul class="d-flex">
-          <li>Usuario</li>
-          <li>Compras</li>
-        </ul>
-      </div>
-      <div class="carritoCompra">
+      <div class="carritoCompra d-flex-end col-sm-12">
         <carrito-compra/> 
       </div>
       <v-spacer></v-spacer>
@@ -67,13 +61,13 @@
   .v-application--wrap{
     min-height: 5vh !important;
   }
-  .contenedorBotones{
-    width: 11%;
-    justify-content: space-between;
+  .carritoCompra{
+    margin-left: 5vw;
+  }
+  .carritoCompra:hover{
+    cursor: pointer;
   }
 
-  .listaContainer{
-    width: 80%;
-  }
+
 
 </style>
