@@ -1,23 +1,17 @@
 <template>
-<form class="wrapper fadeInDown">
+<div class="wrapper fadeInDown">
   <div id="formContent">
-    <!-- Tabs Titles -->
-
-    <!-- Icon -->
     <div class="fadeIn first">
       <img src="../assets/imgLogin.png" id="icon" alt="User Icon" />
     </div>
 
-    <!-- Login Form -->
     <form v-on:submit.prevent="onInput">
       <input type="text" id="username" class="fadeIn second" name="username" v-model="username" placeholder="username">
       <div v-show="submited && !$v.username.required" style="color:red;">Debe ingresar nombre de usuario</div>
 
-      <input type="password" id="password" class="fadeIn third" name="login" v-model="password" placeholder="password">
+      <input type="password" id="password" class="fadeIn third" name="password" v-model="password" placeholder="password">
       <div v-show="submited && !$v.password.required" style="color:red;">Debe ingresar contraseña</div>
       <input type="submit" class="fadeIn fourth" value="Log In">
-      <p>username:brunod</p>
-      <p>password:adivina</p>
       <div v-show="submited && !usuarioEncontrado" style="color:red;">Usuario no encontrado</div>
     </form>
 
@@ -26,7 +20,7 @@
     </div>
 
   </div>
-</form>
+</div>
 </template>
 
 <script>
@@ -43,6 +37,7 @@ export default {
             password:'',
             submited:false,
             usuarioEncontrado:false,
+            isAdminUser:false,
             mensajeError:'',
             listaUsuarios:[]
         }
@@ -59,12 +54,17 @@ export default {
 
         verifyUser(username,password){
           this.usuarioEncontrado =  this.listaUsuarios.find(usuario =>usuario.username == username && usuario.password == password);
-          if(this.usuarioEncontrado){
-            setTimeout(()=>{
-              this.$router.push("/home");
-            },1000);
+          console.log(this.usuarioEncontrado);
+          if(this.usuarioEncontrado.role == 'USER'){
+              setTimeout(()=>{
+                this.$router.push("/productos");
+              },1000);
+          } else if(this.usuarioEncontrado.role == 'ADMIN'){
+              setTimeout(()=>{
+                this.$router.push("/admin");
+              },1000);
           }
-        }
+        },
         
     },
 
@@ -128,7 +128,7 @@ h2 {
   justify-content: center;
   width: 100%;
   min-height: 40%;
-  padding: 20px;
+  padding: 2%;
 }
 
 #formContent {

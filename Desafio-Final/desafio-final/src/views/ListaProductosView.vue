@@ -1,19 +1,19 @@
 <template>
-  <div class="row">
-    <h1>PRODUCTOS</h1>
+  <div class="row mt-3">
     <div v-for="producto in listaProductos" :key="producto.id" class="card col-sm-6 presentacionProducto">
       <img class="card-img-top widthImg" :src=producto.imageUrl alt="Card image cap" height="100">
       <div class="card-body">
         <h5 class="card-title">{{producto.nombre}}</h5>
-        <p class="card-text">{{producto.descripcion}}</p>
-        <a class="btn btn-primary">Detalle</a>
+        <div class="contenedorBotones">
+          <router-link :to="{name:'detalleProducto',params:{id:producto.id,nombre:producto.nombre,descripcion:producto.descripcion,imagen:producto.imageUrl}}"><a class="btn btn-primary">Detalle</a></router-link>
+          <a class="btn btn-primary btn-danger">Agregar</a>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-//import {producto} from '../data/productos.js';
 import axios from 'axios';
 export default {
     name: "Lista-Productos",
@@ -47,5 +47,13 @@ export default {
         border: 6px solid rgba(13, 13, 14, 0.5);
         box-sizing: border-box;
         box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .contenedorBotones{
+    display:flex;
+    position:relative;
+    flex-direction: row;
+    justify-content: space-evenly;
+
   }
 </style>

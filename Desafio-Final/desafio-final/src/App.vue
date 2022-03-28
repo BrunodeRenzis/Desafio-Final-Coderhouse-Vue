@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <header-custom/>
-    <nav id="rutasPagina">
-      <router-link to="/"></router-link>
-    </nav>
     <router-view/>
   </div>
 </template>
@@ -36,7 +33,4 @@ nav {
   }
 }
 
-#rutasPagina{
-  padding-top: 5%;
-}
 </style>

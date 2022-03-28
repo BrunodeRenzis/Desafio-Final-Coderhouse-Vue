@@ -1,25 +1,33 @@
 <template>
   <body>
-      <div class="col-md-4 col-md-offset-4" id="login">
-						<section id="inner-wrapper" class="login">
+      <div class="col-md-4 col-md-offset-4" id="register">
+						<section id="inner-wrapper" class="register">
 							
-								<form>
+								<form v-on:submit.prevent="onInput">
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-envelope"> </i></span>
-											<input type="text" class="form-control" placeholder="username" required>
+											<input type="text" class="form-control" name="username" v-model="user.username" placeholder="username" required>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-envelope"> </i></span>
-											<input type="text" class="form-control" placeholder="Email Address" required>
+											<input type="email" class="form-control" placeholder="Email Address" name="email" v-model="user.email" required>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-key"> </i></span>
-											<input type="password" class="form-control" placeholder="Password" required>
+											<input type="password" class="form-control" name="password" v-model="user.password" placeholder="Password"  required>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input-group selectRol">
+											<select name="rol" id="rol" v-model="user.role" required>
+												<option value="ADMIN" selected>ADMIN</option>
+												<option value="USER">USER</option>
+											</select>
 										</div>
 									</div>
                                      <button type="submit" class="btn btn-success btn-block">Submit</button>
@@ -35,17 +43,26 @@ export default {
     name:'RegisterView',
 	data(){
 		return{
-			listaUsuarios:[],
+			user:{
+				username: '',
+				email:'',
+				password:'',
+				role:['USER','ADMIN']
+			},
+            submited:false,
 		}
 	},
-	async created(){
-	let url = "https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios";
-
-    await axios.get(url).then((response)=>(this.listaUsuarios = response.data));
-	},
+	
 
 	methods:{
-		
+		onInput(event,inputName){
+			this.submited = true;
+			this[inputName]=event.target.value;
+			axios.post("https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios",this.user)
+			.then(this.$router.push("/"))
+			.catch(console.error("No se ha podido registrar el usuario"));
+
+        },		
 	}
 }
 </script>
@@ -55,7 +72,7 @@ export default {
 body{
     background:white
 }
-#login {
+#register {
 	-webkit-perspective: 1000px;
 	-moz-perspective: 1000px;
 	perspective: 1000px;
@@ -65,7 +82,7 @@ body{
     color: #333;
 
 }
-.login {
+.register {
 	font-family: 'Josefin Sans', sans-serif;
 	-webkit-transition: .5s;
 	-moz-transition: .5s;
@@ -74,21 +91,21 @@ body{
 	-moz-transform: rotateY(40deg);
 	transform: rotateY(40deg);
 }
-.login:hover  {
+.register:hover  {
 	-webkit-transform: rotate(0);
 	-moz-transform: rotate(0);
 	transform: rotate(0);
 }
 
-.login .form-group {
+.register .form-group {
 	margin-bottom:17px;
 }
-.login .form-control,
-.login .btn {
+.register .form-control,
+.register .btn {
 	border-radius:0;
 }
 
-.login .btn {
+.register .btn {
 	text-transform:uppercase;
 	letter-spacing:3px;
 }
@@ -149,5 +166,11 @@ input[type=text],input[type=password],input[type=email] {
         border-right-color: rgb(243, 170, 12);
         border-right-style: none;
         border-right-width: medium;
+}
+
+.selectRol{
+	width: min-content;
+    border: 2px solid white;
+	background-color: white;
 }
 </style>
