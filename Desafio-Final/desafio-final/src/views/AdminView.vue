@@ -1,23 +1,18 @@
 <template>
   <div class="container">
-    <h1>Menú Admin</h1>
-      <div class="row">
-        <div class="card col-sm-6" v-for="pedido in $store.state.pedido" :key="pedido">
-            {{pedido}}
-        </div>
-      </div>
-      <router-view></router-view>
-      <div class="sectionsAdmin">
+    <div class="sectionsAdmin">
         <router-link to="/admin/panelpedidos">
-          <button class="btn col-sm-4">Pedidos</button>
+          <button class="btn col-sm">Pedidos</button>
         </router-link>
         <router-link to="/admin/panelproductos">
-          <button class="btn col-sm-4">Productos</button>
+          <button class="btn col-sm">Productos</button>
         </router-link>
         <router-link to="/admin">
-          <button class="btn col-sm-4" id="menuPrincipal">Menú Principal</button>
+          <button class="btn col-sm" id="menuPrincipal">Menú Principal</button>
         </router-link>
       </div>
+    <h1>Menú Admin</h1>
+      <router-view></router-view>
   </div>
 </template>
 
