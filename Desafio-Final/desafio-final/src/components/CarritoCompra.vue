@@ -1,6 +1,7 @@
 <template>
     <div>
-       <router-link to="/carrito"><img src="../assets/whitecart.png" alt="" srcset=""></router-link>
+       <router-link to="/carritoVacio" v-if="$store.state.carritoProductos.length === 0"><img src="../assets/carrito-de-compras.png" alt="Carrito compras"></router-link>
+       <router-link to="/carrito" v-else><img src="../assets/carrito-de-compras.png" alt="Carrito compras"></router-link>
     </div>
 </template>
 
@@ -12,7 +13,7 @@ export default {
 
 <style lang="scss" scoped>
     img{
-        width:1vw;
-        height: 2.5vh;
+        width:2vw;
+        height: 4vh;
     }
 </style>

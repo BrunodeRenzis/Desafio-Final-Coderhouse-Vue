@@ -1,28 +1,34 @@
-<template>
+<template v-if="$store.state.carritoProductos">
     <div class="container mt-5">
+        <header-custom/>
         <div v-for="productoAgregado in $store.state.carritoProductos" :key="productoAgregado.id">
-            <div class="card">
-                <h3>{{productoAgregado.nombre}}</h3>
-                <img :src="productoAgregado.imageUrl" width="20%">
-                <span>{{productoAgregado.cantidad}}</span>
-                <span class="btn btn-primary" @click="quitarUnidad(productoAgregado)">-</span><span class="btn btn-secondary" @click="addACarrito(productoAgregado)">+</span>
+            <div class="card spacing">
+                <div class="imgNomb">
+                    <img :src="productoAgregado.imageUrl" width="20%" class="imgProducto">
+                    <h3 class="nombreProducto">{{productoAgregado.nombre}}</h3>
+                </div>
+                <div class="botonesCantidad">
+                    <span class="btn btn-primary" @click="quitarUnidad(productoAgregado)">-</span>
+                    <span class="cantProducto">{{productoAgregado.cantidad}}</span>
+                    <span class="btn btn-secondary" @click="addACarrito(productoAgregado)">+</span>
+                </div>
                 <div class="precio">
-                    <p>Precio: {{productoAgregado.precio * productoAgregado.cantidad}}</p>
+                    <p>Precio: ${{productoAgregado.precio * productoAgregado.cantidad}}</p>
                 </div>
             </div>
         </div>
-            <div class="total" v-if="total">
-                <p>Total: ${{total}}</p>
-                <a class="btn btn-danger" @click="finalizarCompra">Comprar</a>
-            </div>
-        <router-link to="/productos">Home Productos</router-link>
+        <div class="total" v-if="total">
+            <p>Total: ${{total}}</p>
+            <a class="btn btn-danger" @click="finalizarCompra">Comprar</a>
+        </div>
     </div>
 </template>
 
 <script>
 import {mapMutations,mapState} from 'vuex';
-
+import HeaderCustom from '../components/HeaderCustom.vue'
 export default {
+    components:{HeaderCustom},
     computed:{
         ...mapState([
             'carritoProductos'
@@ -41,7 +47,7 @@ export default {
         ...mapMutations([
             'REMOVE_PRODUCT',
             'AGREGAR_UNIDAD',
-            'ADD_A_CARRITO',
+            'ADD_TO_CARRITO',
             'QUITAR_UNIDAD',
             'FINALIZAR_COMPRA'
         ]),
@@ -58,7 +64,7 @@ export default {
             }
         },
         addACarrito(producto){
-            this.$store.commit('ADD_A_CARRITO',producto);
+            this.$store.commit('ADD_TO_CARRITO',producto);
         },
         finalizarCompra(){
             this.$store.commit('FINALIZAR_COMPRA');
@@ -70,5 +76,24 @@ export default {
 <style scoped>
     span,h3{
         width: 10%;
+    }
+
+
+    .cantProducto{
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .nombreProducto{
+        width:auto;
+    }
+
+    .botonesCantidad{
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .spacing{
+        margin: 2%;
     }
 </style>

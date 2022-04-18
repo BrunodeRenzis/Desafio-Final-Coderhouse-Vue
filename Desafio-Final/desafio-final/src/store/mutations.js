@@ -9,7 +9,7 @@ export const ADD_PRODUCT = (state,producto)=>{
 };
 
 
-export const ADD_A_CARRITO = (state, producto) => {
+export const ADD_TO_CARRITO = (state, producto) => {
     
     let productoEnCarrito = state.carritoProductos.find(item => {
         return item.id == producto.id;
@@ -31,9 +31,6 @@ export const REMOVE_PRODUCT = (state,producto)=>{
     });
 };
 
-export const CARGAR_PRODUCTOS = (state, productos) => {
-    state.listaProductos = productos;
-}
 
 export const AGREGAR_UNIDAD = (state, producto) => {
     let productoBuscado = state.carritoProductos.find(prod => {
@@ -72,6 +69,8 @@ export const TOTAL_CARRITO = (state)=>{
     });
 }
 
-export const FINALIZAR_COMPRA = (state)=>{
-   return state.carritoProductos = [];
+export const FINALIZAR_COMPRA = (state/*,pedido*/)=>{
+    alert("Gracias por tu compra");
+    state.pedido.push(state.carritoProductos);
+    return state.carritoProductos = [];
 }

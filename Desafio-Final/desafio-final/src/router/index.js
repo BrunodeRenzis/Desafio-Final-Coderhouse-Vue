@@ -18,9 +18,21 @@ const routes = [
   },
 
   {
+    path: '/admin',
+    name: 'admin',
+    component: () => import(/* webpackChunkName: "about" */ '../views/AdminView.vue')
+
+  },
+
+  {
     path: '/carrito',
     name: 'carrito',
     component: () => import(/* webpackChunkName: "about" */ '../views/CarritoComprasView.vue')
+  },
+  {
+    path: '/carritoVacio',
+    name: 'carritoVacio',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CarritoVacioView.vue')
   },
   {
     path: '/productos',

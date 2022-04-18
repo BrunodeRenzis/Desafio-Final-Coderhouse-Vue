@@ -60,8 +60,6 @@ export default {
 			this[inputName]=event.target.value;
 			axios.post("https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios",this.user)
 			.then(this.$router.push("/"))
-			.catch(console.error("No se ha podido registrar el usuario"));
-
         },		
 	}
 }

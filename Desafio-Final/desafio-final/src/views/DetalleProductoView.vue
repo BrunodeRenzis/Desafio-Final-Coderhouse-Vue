@@ -1,7 +1,8 @@
 <template>
     <div class="container mt-4 w-50 p-3">
+      <header-custom/>
         <router-link to="/productos" class="cerrar">X</router-link>
-      <div class="row bg-dark bg-gradient">
+      <div class="bg-dark bg-gradient">
         <div class="card col-sm-12 col presentacionProducto">
           <img class="card-img-top" :src=$route.params.imageUrl alt="Card image cap">
           <div class="card-body col">
@@ -12,7 +13,6 @@
               <h3>${{$route.params.precio}}</h3>
               <a class="btn btn-primary btn-danger" @click="agregarProducto({...$route.params,cantidad:1,})">Agregar</a>
             </div>
-              <p>Unidades en stock {{$route.params.stock}}</p>
         </div>
     </div>
   </div>
@@ -58,8 +58,9 @@
 
 <script>
 import {mapMutations,mapState} from 'vuex';
+import HeaderCustom from '../components/HeaderCustom.vue';
 export default {
-
+  components:{HeaderCustom},
   computed:{
     ...mapState([
       'carritoProductos',
@@ -71,7 +72,6 @@ export default {
     ]),
     agregarProducto(producto){
       this.$store.commit('ADD_PRODUCT',producto);
-      console.log(producto);
     }
     
   }
@@ -90,6 +90,8 @@ export default {
     position: absolute;
     display: block;
     float: left;
+    margin-top: 1%;
+    margin-left: 1%;
     font-size: xx-large;
     text-decoration-line: none;
     cursor: pointer;

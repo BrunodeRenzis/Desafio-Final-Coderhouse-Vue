@@ -1,5 +1,6 @@
 <template>
 <div class="wrapper fadeInDown">
+<header-login/>
   <div id="formContent">
     <div class="fadeIn first">
       <img src="../assets/imgLogin.png" id="icon" alt="User Icon" />
@@ -26,10 +27,11 @@
 <script>
 import axios from 'axios';
 import {required,minLength} from 'vuelidate/lib/validators';
+import HeaderLogin from './HeaderLogin.vue'
 export default {
     name: 'LoginView',
     components:{
-
+      HeaderLogin
     },
     data(){
         return{
@@ -54,7 +56,6 @@ export default {
 
         verifyUser(username,password){
           this.usuarioEncontrado =  this.listaUsuarios.find(usuario =>usuario.username == username && usuario.password == password);
-          console.log(this.usuarioEncontrado);
           if(this.usuarioEncontrado.role == 'USER'){
               setTimeout(()=>{
                 this.$router.push("/productos");
@@ -68,10 +69,18 @@ export default {
         
     },
 
-    async created(){
-     let url = "https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios";
+    computed:{
+      user:{
+        get(){
+          return this.username;
+        }
+      }
+    },
 
+    async mounted(){
+     let url = "https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios";
      await axios.get(url).then((response)=>(this.listaUsuarios = response.data));
+     this.$forceUpdate()
     },
     
     validations:{

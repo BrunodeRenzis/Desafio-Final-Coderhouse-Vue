@@ -8,11 +8,16 @@ import * as actions from './actions';
 
 export default new Vuex.Store({
   state: {
-    listaProductos: [],
     carritoProductos: [],
-    usuario: {},
+    usuario: String,
     detallePedido:[],
-    totalCompra:0
+    totalCompra:0,
+    pedido: {
+      id: Number,
+      cliente:String,
+      productos:[],
+      total: Number
+    }
   },
   getters:{},
   mutations,
