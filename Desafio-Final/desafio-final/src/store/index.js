@@ -12,12 +12,7 @@ export default new Vuex.Store({
     usuario: String,
     detallePedido:[],
     totalCompra:0,
-    pedido: {
-      id: Number,
-      cliente:String,
-      productos:[],
-      total: Number
-    }
+    pedido: []
   },
   getters:{},
   mutations,

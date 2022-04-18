@@ -20,7 +20,20 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AdminView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/AdminView.vue'),
+    children: [
+      {
+        path:'panelproductos',
+        name:'panelproductos',
+        component: () => import(/* webpackChunkName: "about" */ '../views/AdminProductsView.vue')
+      },
+
+      {
+        path:'panelpedidos',
+        name:'panelpedidos',
+        component: () => import(/* webpackChunkName: "about" */ '../views/AdminPedidosView.vue')
+      }
+    ]
 
   },
 
