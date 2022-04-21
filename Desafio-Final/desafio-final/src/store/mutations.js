@@ -1,4 +1,5 @@
 //metodo acción y mutación
+import axios from 'axios';
 export const ADD_PRODUCT = (state,producto)=>{
     let productoEnCarrito = state.carritoProductos.find(item => {
         return item.id == producto.id;
@@ -69,8 +70,18 @@ export const TOTAL_CARRITO = (state)=>{
     });
 }
 
-export const FINALIZAR_COMPRA = (state/*,pedido*/)=>{
+export const FINALIZAR_COMPRA = (state,total)=>{
     alert("Gracias por tu compra");
-    state.pedido.push(state.carritoProductos);
+    let pedido = {
+        cliente: '',
+        productos: [],
+        monto: 0
+    }
+    state.carritoProductos.forEach(producto=>{
+        pedido.productos.push(producto.nombre);
+    });
+    pedido.cliente = 'tuvieja';
+    pedido.monto+=total;
+    axios.post("https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/pedidos",pedido);
     return state.carritoProductos = [];
 }

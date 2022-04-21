@@ -9,7 +9,7 @@ import * as actions from './actions';
 export default new Vuex.Store({
   state: {
     carritoProductos: [],
-    usuario: String,
+    usuario: '',
     detallePedido:[],
     totalCompra:0,
     pedido: []

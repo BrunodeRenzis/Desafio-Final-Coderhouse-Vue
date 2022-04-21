@@ -19,7 +19,7 @@
         </div>
         <div class="total" v-if="total">
             <p>Total: ${{total}}</p>
-            <a class="btn btn-danger" @click="finalizarCompra">Comprar</a>
+            <a class="btn btn-danger" @click="finalizarCompra(total)">Comprar</a>
         </div>
     </div>
 </template>
@@ -29,6 +29,7 @@ import {mapMutations,mapState} from 'vuex';
 import HeaderCustom from '../components/HeaderCustom.vue'
 export default {
     components:{HeaderCustom},
+
     computed:{
         ...mapState([
             'carritoProductos'
@@ -66,8 +67,8 @@ export default {
         addACarrito(producto){
             this.$store.commit('ADD_TO_CARRITO',producto);
         },
-        finalizarCompra(){
-            this.$store.commit('FINALIZAR_COMPRA');
+        finalizarCompra(monto){
+            this.$store.commit('FINALIZAR_COMPRA',monto);
         }
     }
 }

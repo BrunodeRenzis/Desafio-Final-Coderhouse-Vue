@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <header-custom/>    
+    <h1>Menú Admin</h1>
     <div class="sectionsAdmin">
         <router-link to="/admin/panelpedidos">
           <button class="btn col-sm">Pedidos</button>
@@ -11,14 +13,16 @@
           <button class="btn col-sm" id="menuPrincipal">Menú Principal</button>
         </router-link>
       </div>
-    <h1>Menú Admin</h1>
       <router-view></router-view>
+      
   </div>
 </template>
 
 <script>
-export default {
+import HeaderCustom from '../components/HeaderCustom.vue'
 
+export default {
+  components:{HeaderCustom}
 }
 </script>
 
@@ -32,5 +36,8 @@ export default {
   }
   button{
     width: max-content;
+  }
+  h1{
+    margin-top: 2%;
   }
 </style>

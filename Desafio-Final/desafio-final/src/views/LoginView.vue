@@ -69,18 +69,10 @@ export default {
         
     },
 
-    computed:{
-      user:{
-        get(){
-          return this.username;
-        }
-      }
-    },
-
     async mounted(){
+     this.$forceUpdate()
      let url = "https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios";
      await axios.get(url).then((response)=>(this.listaUsuarios = response.data));
-     this.$forceUpdate()
     },
     
     validations:{

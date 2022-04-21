@@ -8,6 +8,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-envelope"> </i></span>
 											<input type="text" class="form-control" name="username" v-model="user.username" placeholder="username" required>
+											<div v-show="submited && !$v.username.required" style="color:red;">Debe ingresar nombre de usuario</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -20,6 +21,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-key"> </i></span>
 											<input type="password" class="form-control" name="password" v-model="user.password" placeholder="Password"  required>
+                                            <div v-show="submited && !$v.password.required" style="color:red;">Debe ingresar contraseña</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -39,6 +41,7 @@
 
 <script>
 import axios from 'axios';
+import {required,minLength} from 'vuelidate/lib/validators';
 export default {
     name:'RegisterView',
 	data(){
@@ -61,7 +64,17 @@ export default {
 			axios.post("https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios",this.user)
 			.then(this.$router.push("/"))
         },		
-	}
+	},
+	validations:{
+      username:{
+        required,
+        minLength: minLength(4)
+      },
+      password:{
+        required,
+        minLength: minLength(6)
+      }
+    }
 }
 </script>
 
