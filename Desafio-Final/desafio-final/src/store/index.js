@@ -9,10 +9,10 @@ import * as actions from './actions';
 export default new Vuex.Store({
   state: {
     carritoProductos: [],
-    usuario: '',
     detallePedido:[],
-    totalCompra:0,
-    pedido: []
+    username:null,
+    auth:null
+    
   },
   getters:{},
   mutations,

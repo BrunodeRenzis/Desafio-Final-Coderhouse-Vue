@@ -3,7 +3,11 @@
         <h1>PANEL PEDIDOS</h1>
         <div class="row">
         <div class="card col-sm" v-for="pedido in listaPedidos" :key="pedido.id">
-            {{pedido}}
+            <div class="pedido d-flex flex-column">
+                <p>Cliente: {{pedido.cliente}}</p>
+                <p class="productos">Pedido: {{pedido.productos}}</p> 
+                <p>Monto: {{pedido.monto}}</p>
+            </div>
         </div>
       </div>
     </div>
@@ -25,6 +29,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

@@ -1,95 +1,129 @@
 <template>
-<div class="wrapper fadeInDown">
-<header-login/>
-  <div id="formContent">
-    <div class="fadeIn first">
-      <img src="../assets/imgLogin.png" id="icon" alt="User Icon" />
+  <div class="wrapper fadeInDown">
+    <header-login />
+    <div id="formContent">
+      <div class="fadeIn first">
+        <img src="../assets/imgLogin.png" id="icon" alt="User Icon" />
+      </div>
+
+      <form v-on:submit.prevent="onSubmit">
+        <input
+          type="text"
+          id="username"
+          class="fadeIn second"
+          name="username"
+          v-model="username"
+          placeholder="username"
+        />
+        <div v-show="submited && !$v.username.required" style="color: red">
+          Debe ingresar nombre de usuario
+        </div>
+
+        <input
+          type="password"
+          id="password"
+          class="fadeIn third"
+          name="password"
+          v-model="password"
+          placeholder="password"
+        />
+        <div v-show="submited && !$v.password.required" style="color: red">
+          Debe ingresar contraseña
+        </div>
+        <input
+          type="submit"
+          class="fadeIn fourth"
+          value="Log In"
+          @click="verifyData()"
+        />
+        <div v-show="submited && !usuarioEncontrado" style="color: red">
+          Usuario no encontrado
+        </div>
+      </form>
+
+      <div id="formFooter">
+        <router-link to="/registro"
+          ><a class="underlineHover" href="#">Register Me</a></router-link
+        ><router-view />
+      </div>
     </div>
-
-    <form v-on:submit.prevent="onInput">
-      <input type="text" id="username" class="fadeIn second" name="username" v-model="username" placeholder="username">
-      <div v-show="submited && !$v.username.required" style="color:red;">Debe ingresar nombre de usuario</div>
-
-      <input type="password" id="password" class="fadeIn third" name="password" v-model="password" placeholder="password">
-      <div v-show="submited && !$v.password.required" style="color:red;">Debe ingresar contraseña</div>
-      <input type="submit" class="fadeIn fourth" value="Log In">
-      <div v-show="submited && !usuarioEncontrado" style="color:red;">Usuario no encontrado</div>
-    </form>
-
-    <div id="formFooter">
-      <router-link to="/registro"><a class="underlineHover" href="#">Register Me</a></router-link><router-view/>
-    </div>
-
   </div>
-</div>
 </template>
 
 <script>
-import axios from 'axios';
-import {required,minLength} from 'vuelidate/lib/validators';
-import HeaderLogin from './HeaderLogin.vue'
+import axios from "axios";
+import { required, minLength } from "vuelidate/lib/validators";
+import HeaderLogin from "../components/HeaderLogin.vue";
 export default {
-    name: 'LoginView',
-    components:{
-      HeaderLogin
-    },
-    data(){
-        return{
-            username:'',
-            password:'',
-            submited:false,
-            usuarioEncontrado:false,
-            isAdminUser:false,
-            mensajeError:'',
-            listaUsuarios:[]
-        }
-    },
-    methods:{
-        onInput(event,inputName){
-          this.submited = true;
-          if(this.$v.$invalid){
-            return false;
-          }
-            this[inputName]=event.target.value;
-            this.verifyUser(this.username,this.password);
-        },
-
-        verifyUser(username,password){
-          this.usuarioEncontrado =  this.listaUsuarios.find(usuario =>usuario.username == username && usuario.password == password);
-          if(this.usuarioEncontrado.role == 'USER'){
-              setTimeout(()=>{
-                this.$router.push("/productos");
-              },1000);
-          } else if(this.usuarioEncontrado.role == 'ADMIN'){
-              setTimeout(()=>{
-                this.$router.push("/admin");
-              },1000);
-          }
-        },
-        
-    },
-
-    async mounted(){
-     this.$forceUpdate()
-     let url = "https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios";
-     await axios.get(url).then((response)=>(this.listaUsuarios = response.data));
-    },
-    
-    validations:{
-      username:{
-        required,
-        minLength: minLength(4)
-      },
-      password:{
-        required,
-        minLength: minLength(6)
+  name: "LoginView",
+  components: {
+    HeaderLogin,
+  },
+  data() {
+    return {
+      username: "",
+      password: "",
+      submited: false,
+      usuarioEncontrado: false,
+      isAdminUser: false,
+      mensajeError: "",
+      listaUsuarios: [],
+    };
+  },
+  methods: {
+    onSubmit(event, inputName) {
+      if (this.$v.$invalid) {
+        return false;
       }
-    }
-}
+      this[inputName] = event.target.value;
+    },
+
+    verifyUser(username, password) {
+      this.usuarioEncontrado = this.listaUsuarios.find(
+        (usuario) =>
+          usuario.username == username && usuario.password == password
+      );
+      if (this.usuarioEncontrado) {
+        if (this.usuarioEncontrado.role == "USER") {
+          setTimeout(() => {
+            this.$router.push("/productos");
+          }, 1000);
+        } else if (this.usuarioEncontrado.role == "ADMIN") {
+          setTimeout(() => {
+            this.$router.push("/admin");
+          }, 1000);
+        }
+      } else {
+        console.warn("usuarioEncontrado", this.usuarioEncontrado);
+      }
+    },
+
+    verifyData() {
+      this.$forceUpdate();
+      let url =
+        "https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/usuarios";
+      axios.get(url).then((response) => {
+        this.listaUsuarios = response.data;
+        this.submited = true;
+        this.verifyUser(this.username, this.password);
+      });
+    },
+  },
+
+  validations: {
+    username: {
+      required,
+      minLength: minLength(4),
+    },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 /* BASIC */
 
 html {
@@ -103,7 +137,7 @@ body {
 
 a {
   color: #92badd;
-  display:inline-block;
+  display: inline-block;
   text-decoration: none;
   font-weight: 400;
 }
@@ -113,19 +147,17 @@ h2 {
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
-  display:inline-block;
-  margin: 40px 8px 10px 8px; 
+  display: inline-block;
+  margin: 40px 8px 10px 8px;
   color: #cccccc;
 }
-
-
 
 /* STRUCTURE */
 
 .wrapper {
   display: flex;
   align-items: center;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   min-height: 40%;
@@ -141,8 +173,8 @@ h2 {
   max-width: 450px;
   position: relative;
   padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
@@ -157,8 +189,6 @@ h2 {
   flex-direction: column;
 }
 
-
-
 /* TABS */
 
 h2.inactive {
@@ -170,12 +200,11 @@ h2.active {
   border-bottom: 2px solid #5fbae9;
 }
 
-
-
-
 /* FORM TYPOGRAPHY*/
 
-input[type=button], input[type=submit], input[type=reset]  {
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -185,8 +214,8 @@ input[type=button], input[type=submit], input[type=reset]  {
   display: inline-block;
   text-transform: uppercase;
   font-size: 13px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   margin: 5px 20px 40px 20px;
@@ -197,11 +226,15 @@ input[type=button], input[type=submit], input[type=reset]  {
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
   background-color: #39ace7;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -209,7 +242,8 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text],input[type=password] {
+input[type="text"],
+input[type="password"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -230,16 +264,14 @@ input[type=text],input[type=password] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type="text"]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type="text"]:placeholder {
   color: #cccccc;
 }
-
-
 
 /* ANIMATIONS */
 
@@ -280,23 +312,44 @@ input[type=text]:placeholder {
 }
 
 /* Simple CSS3 Fade-in Animation */
-@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .fadeIn {
-  opacity:0;
-  -webkit-animation:fadeIn ease-in 1;
-  -moz-animation:fadeIn ease-in 1;
-  animation:fadeIn ease-in 1;
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
 
-  -webkit-animation-fill-mode:forwards;
-  -moz-animation-fill-mode:forwards;
-  animation-fill-mode:forwards;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 
-  -webkit-animation-duration:1s;
-  -moz-animation-duration:1s;
-  animation-duration:1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  animation-duration: 1s;
 }
 
 .fadeIn.first {
@@ -333,20 +386,17 @@ input[type=text]:placeholder {
   content: "";
 }
 
-.underlineHover:hover:after{
+.underlineHover:hover:after {
   width: 100%;
 }
-
-
 
 /* OTHERS */
 
 *:focus {
-    outline: none;
-} 
-
-#icon {
-  width:60%;
+  outline: none;
 }
 
+#icon {
+  width: 60%;
+}
 </style>

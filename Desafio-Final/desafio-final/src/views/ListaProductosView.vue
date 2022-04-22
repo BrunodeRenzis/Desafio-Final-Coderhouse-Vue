@@ -6,9 +6,9 @@
         <img class="card-img-top widthImg" :src=producto.imageUrl alt="Card image cap" height="100">
         <div class="card-body prueba">
           <h5 class="card-title">{{producto.nombre}}</h5>
-          <div class="toDetail d-flex justify-content-around">
-            <router-link :to="{name:'detalleProducto',params:{id:producto.id,nombre:producto.nombre,descripcion:producto.descripcion,imageUrl:producto.imageUrl,precio:producto.precio,stock:producto.stock}}"><a class="btn btn-primary">Detalle</a></router-link>
-            <a class="btn btn-danger" @click="agregarProducto({...producto,cantidad:1})">Agregar</a>
+          <div class="contenedor-botones d-flex justify-content-around">
+            <router-link :to="{name:'detalleProducto',params:{id:producto.id,nombre:producto.nombre,descripcion:producto.descripcion,imageUrl:producto.imageUrl,precio:producto.precio,stock:producto.stock}}"><a class="btn boton btn-primary">Detalle</a></router-link>
+            <a class="btn boton btn-danger" id="btnAgregar" @click="agregarProducto({...producto,cantidad:1})">Agregar</a>
           </div>
         </div>
       </div>
@@ -74,9 +74,18 @@ export default {
         box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.25);
   }
 
+  //0-460
+  @media (max-width: 460px){
+    .contenedor-botones{
+      flex-direction: column !important;
+      width: 100%;
+    }
+
+  }
 
 
-  .contenedorBotones{
+
+  .contenedor-botones{
     display:flex;
     position:relative;
     flex-direction: row;

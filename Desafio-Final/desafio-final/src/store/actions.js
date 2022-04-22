@@ -13,3 +13,11 @@ export const agregarUnidad = ({commit},producto)=>{
 export const quitarUnidad = ({commit},producto)=>{
     commit('QUITAR_UNIDAD',producto);
 }
+
+export const login = ({commit},username)=>{
+    commit("LOGIN",username);
+}
+
+export const logout = ({commit})=>{
+    commit("LOGOUT");
+}

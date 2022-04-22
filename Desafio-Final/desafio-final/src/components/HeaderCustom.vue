@@ -21,7 +21,13 @@
             />
           </router-link>
         </v-col>
+        <v-col
 
+        sm="1"
+        md="1"
+        lg="1">
+            <button class="logout btn btn-danger" @click="logout">Logout</button>
+        </v-col>      
         <v-col
         sm="1"
         md="1"
@@ -29,19 +35,6 @@
         <carrito-compra class="carritoCompra"/>
         </v-col>              
 
-        <v-col
-
-        sm="1"
-        md="1"
-        lg="1">
-            <v-img
-              alt="User"
-              class="shrink mr-2 float-end"
-              contain
-              src="../assets/usuario.png"
-              width="40"
-            />
-        </v-col>      
       </v-row>
     </v-container>
 
@@ -56,11 +49,21 @@
     import CarritoCompra from './CarritoCompra.vue' 
     export default {
           name: 'HeaderCustom',
-          components:{CarritoCompra}
+          components:{CarritoCompra},
+          methods:{
+            logout() {
+            this.$store.dispatch("logout");
+            this.$router.push("/");
+            }
+          }
       }
 </script>
 
 <style lang="scss"> 
+  .logout{
+    height: 5vh;
+    width: min-content;
+  }
   .v-application--wrap{
     min-height: 5vh !important;
   }

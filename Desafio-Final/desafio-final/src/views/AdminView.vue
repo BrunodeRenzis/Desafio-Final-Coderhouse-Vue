@@ -9,9 +9,6 @@
         <router-link to="/admin/panelproductos">
           <button class="btn col-sm">Productos</button>
         </router-link>
-        <router-link to="/admin">
-          <button class="btn col-sm" id="menuPrincipal">Menú Principal</button>
-        </router-link>
       </div>
       <router-view></router-view>
       
