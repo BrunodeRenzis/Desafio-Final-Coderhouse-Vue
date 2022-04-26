@@ -83,12 +83,13 @@ export default {
         (usuario) =>
           usuario.username == username && usuario.password == password
       );
+      this.$store.state.user = this.usuarioEncontrado;
       if (this.usuarioEncontrado) {
-        if (this.usuarioEncontrado.role == "USER") {
+        if (this.$store.state.user.role == "USER") {
           setTimeout(() => {
             this.$router.push("/productos");
           }, 1000);
-        } else if (this.usuarioEncontrado.role == "ADMIN") {
+        } else if (this.$store.state.user.role == "ADMIN") {
           setTimeout(() => {
             this.$router.push("/admin");
           }, 1000);
@@ -105,6 +106,7 @@ export default {
       axios.get(url).then((response) => {
         this.listaUsuarios = response.data;
         this.submited = true;
+        this.$store.state.username = this.username;
         this.verifyUser(this.username, this.password);
       });
     },

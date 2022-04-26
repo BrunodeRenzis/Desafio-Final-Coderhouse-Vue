@@ -14,8 +14,8 @@ export const quitarUnidad = ({commit},producto)=>{
     commit('QUITAR_UNIDAD',producto);
 }
 
-export const login = ({commit},username)=>{
-    commit("LOGIN",username);
+export const login = ({commit},user)=>{
+    commit("LOGIN",user);
 }
 
 export const logout = ({commit})=>{

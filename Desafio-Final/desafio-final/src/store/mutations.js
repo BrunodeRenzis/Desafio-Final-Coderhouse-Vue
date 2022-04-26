@@ -80,17 +80,12 @@ export const FINALIZAR_COMPRA = (state,total)=>{
     state.carritoProductos.forEach(producto=>{
         pedido.productos.push(producto.nombre);
     });
-    pedido.cliente = 'tuvieja';
+    pedido.cliente = state.user.username;
     pedido.monto+=total;
     axios.post("https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/pedidos",pedido);
     return state.carritoProductos = [];
 }
 
-export const LOGIN =(state, username) => {
-    state.auth = true;
-    state.username = username;
-}
 export const LOGOUT =(state) => {
-    state.auth = false;
-    state.username = null;
+    state.user = {};
 }

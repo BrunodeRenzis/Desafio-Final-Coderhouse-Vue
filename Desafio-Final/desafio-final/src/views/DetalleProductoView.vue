@@ -4,14 +4,14 @@
         <router-link to="/productos" class="cerrar">X</router-link>
       <div class="bg-dark bg-gradient">
         <div class="card col-sm-12 col presentacionProducto">
-          <img class="card-img-top" :src=$route.params.imageUrl alt="Card image cap">
+          <img class="card-img-top" :src=$route.params.producto.imageUrl alt="Card image cap">
           <div class="card-body col">
-            <h5 class="card-title">{{$route.params.nombre}}</h5>
-            <h5 class="card-title">{{$route.params.descripcion}}</h5>
+            <h5 class="card-title">{{$route.params.producto.nombre}}</h5>
+            <h5 class="card-title">{{$route.params.producto.descripcion}}</h5>
           </div>
             <div class="contenedorBotones col d-flex justify-content-around">
-              <h3>${{$route.params.precio}}</h3>
-              <a class="btn btn-primary btn-danger" @click="agregarProducto({...$route.params,cantidad:1,})">Agregar</a>
+              <h3>${{$route.params.producto.precio}}</h3>
+              <a class="btn btn-primary btn-danger" @click="agregarProducto({...$route.params.producto,cantidad:1,})">Agregar</a>
             </div>
         </div>
     </div>

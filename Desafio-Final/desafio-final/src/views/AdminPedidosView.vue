@@ -2,7 +2,7 @@
     <div>
         <h1>PANEL PEDIDOS</h1>
         <div class="row">
-        <div class="card col-sm" v-for="pedido in listaPedidos" :key="pedido.id">
+        <div class="card col-sm-6" v-for="pedido in listaPedidos" :key="pedido.id">
             <div class="pedido d-flex flex-column">
                 <p>Cliente: {{pedido.cliente}}</p>
                 <p class="productos">Pedido: {{pedido.productos}}</p> 

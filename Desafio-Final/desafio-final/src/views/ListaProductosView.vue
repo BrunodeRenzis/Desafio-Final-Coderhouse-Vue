@@ -7,7 +7,7 @@
         <div class="card-body prueba">
           <h5 class="card-title">{{producto.nombre}}</h5>
           <div class="contenedor-botones d-flex justify-content-around">
-            <router-link :to="{name:'detalleProducto',params:{id:producto.id,nombre:producto.nombre,descripcion:producto.descripcion,imageUrl:producto.imageUrl,precio:producto.precio,stock:producto.stock}}"><a class="btn boton btn-primary">Detalle</a></router-link>
+            <router-link :to="{name:'detalleProducto',params:{id:producto.id,producto}}"><a class="btn boton btn-primary">Detalle</a></router-link>
             <a class="btn boton btn-danger" id="btnAgregar" @click="agregarProducto({...producto,cantidad:1})">Agregar</a>
           </div>
         </div>
