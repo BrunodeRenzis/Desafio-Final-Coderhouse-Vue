@@ -71,7 +71,6 @@ export const TOTAL_CARRITO = (state)=>{
 }
 
 export const FINALIZAR_COMPRA = (state,total)=>{
-    alert("Gracias por tu compra");
     let pedido = {
         cliente: '',
         productos: [],
@@ -83,7 +82,16 @@ export const FINALIZAR_COMPRA = (state,total)=>{
     pedido.cliente = state.user.username;
     pedido.monto+=total;
     axios.post("https://623b33f32e056d1037eee13e.mockapi.io/desafio-coder/pedidos",pedido);
+    alert(`Gracias por tu compra ${state.user.username}`);
     return state.carritoProductos = [];
+}
+
+export const LISTA_PRODUCTOS = (state,payload) =>{
+    state.listaProductos = payload;
+}
+
+export const LISTA_PEDIDOS = (state,payload)=>{
+    state.pedidos = payload;
 }
 
 export const LOGOUT =(state) => {

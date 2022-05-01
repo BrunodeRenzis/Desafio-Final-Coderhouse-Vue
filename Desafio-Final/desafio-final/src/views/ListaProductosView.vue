@@ -23,16 +23,16 @@ import HeaderCustom from '../components/HeaderCustom.vue'
 export default {
     name: "Lista-Productos",
     components:{HeaderCustom},
-    data(){
-      return{
-        listaProductos:[],
-      }
+
+    mounted(){
+      this.$store.dispatch("obtenerListaProductos");
     },
 
     computed:{
-      ...mapState([
-        'carritoProductos',
-      ])
+      ...mapState({listaProductos:(state)=>state.listaProductos},
+      'carritoProductos'
+      )
+      
     },
 
     async created(){

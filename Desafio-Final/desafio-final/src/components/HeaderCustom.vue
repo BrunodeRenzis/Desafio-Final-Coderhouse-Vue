@@ -36,8 +36,8 @@
             <carrito-compra class="carritoCompra" />
           </v-col>
 
-          <v-col sm="1" md="1" lg="1">
-            <span id="username">{{ user.username }}</span>
+          <v-col sm="1" md="1" lg="1" id="usernameContainer">
+            <a id="username" @click="trollMessage()">{{ user.username }}</a>
           </v-col>
         </v-row>
       </v-container>
@@ -57,6 +57,9 @@ export default {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/");
+    },
+    trollMessage() {
+      alert(`Perdón capo esto no hace nada. Te la creiste we xd`);
     },
   },
   computed: {
@@ -79,9 +82,22 @@ export default {
 }
 
 #username {
-  height: 5vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+#usernameContainer {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+a {
+  width: min-content;
+}
+
+a:hover {
+  border-bottom: 2px solid white;
 }
 </style>

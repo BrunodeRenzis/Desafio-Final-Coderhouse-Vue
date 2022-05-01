@@ -1,22 +1,20 @@
 <template>
-  <footer id="footer-custom">
-      
-  </footer>
+  <footer id="footer-custom"></footer>
 </template>
 
 <script>
 export default {
-    name: 'FooterCustom'
-}
+  name: "FooterCustom",
+};
 </script>
 
 <style lang="scss" scoped>
-    #footer-custom{
-        background-color: #424242;
-        color: white;
-        height: 10vh;
-        position: relative;
-        width: 100%;
-        bottom: 0;
-    }
+#footer-custom {
+  background-color: #424242;
+  color: white;
+  height: 10vh;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
 </style>
